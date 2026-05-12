@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduPath — Learn Without Limits</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0d0d;
+  --paper: #f5f0e8;
+  --lime: #c8f135;
+  --lime-dark: #a8cc20;
+  --coral: #ff5a3c;
+  --sky: #d4efff;
+  --mid: #6b6b6b;
+  --card1: #1a1a2e;
+  --card2: #16213e;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--coral);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, background 0.2s;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.35s ease, border-color 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(245,240,232,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(13,13,13,0.08);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.nav-logo span { color: var(--coral); }
+
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--mid);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+.nav-cta {
+  background: var(--ink);
+  color: var(--paper) !important;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--paper);
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s !important;
+}
+.nav-cta:hover { background: var(--coral) !important; transform: scale(1.03); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  padding: 140px 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, #c8f13540 0%, transparent 70%);
+  z-index: 0;
+  animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+.hero-left { position: relative; z-index: 1; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+  animation: slideDown 0.8s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--ink);
+  border-radius: 50%;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(52px, 5.5vw, 76px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  animation: slideUp 0.9s ease 0.1s both;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 300;
+  color: var(--coral);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--mid);
+  line-height: 1.7;
+  max-width: 420px;
+  margin-bottom: 40px;
+  animation: slideUp 0.9s ease 0.2s both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  animation: slideUp 0.9s ease 0.3s both;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 16px 32px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.25s;
+  border: 2px solid var(--ink);
+}
+.btn-primary:hover { background: var(--coral); border-color: var(--coral); transform: translateY(-2px); }
+
+.btn-secondary {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.2s;
+}
+.btn-secondary:hover { gap: 14px; }
+.btn-secondary::after { content: '→'; font-size: 16px; }
+
+.hero-stats {
+  display: flex;
+  gap: 36px;
+  margin-top: 52px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(13,13,13,0.12);
+  animation: slideUp 0.9s ease 0.4s both;
+}
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -1px;
+}
+.stat-label { font-size: 12px; color: var(--mid); margin-top: 2px; letter-spacing: 0.3px; }
+
+/* HERO RIGHT — Visual */
+.hero-right {
+  position: relative; z-index: 1;
+  animation: fadeIn 1.2s ease 0.4s both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hero-visual {
+  background: var(--card1);
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, #c8f13530, transparent 70%);
+}
+
+.course-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.3s, background 0.3s;
+  cursor: pointer;
+}
+.course-card:hover { transform: translateX(6px); background: rgba(255,255,255,0.1); }
+
+.course-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.course-info h4 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+.course-info p { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+.progress-bar { height: 3px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 8px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 10px; }
+
+.live-badge {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: var(--coral);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 5px;
+}
+.live-dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* MARQUEE */
+.marquee-section {
+  background: var(--ink);
+  padding: 18px 0;
+  overflow: hidden;
+  display: flex;
+}
+.marquee-track {
+  display: flex;
+  gap: 48px;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+  align-items: center;
+}
+.marquee-track span {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.marquee-track .dot { color: var(--lime); font-size: 18px; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* FEATURES */
+.features {
+  padding: 100px 48px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 60px;
+  max-width: 560px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  padding: 36px 32px;
+  border-radius: 20px;
+  border: 1px solid rgba(13,13,13,0.1);
+  background: #fff;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  transform-origin: left;
+}
+.feature-card:nth-child(1)::after { background: var(--lime); }
+.feature-card:nth-child(2)::after { background: var(--coral); }
+.feature-card:nth-child(3)::after { background: var(--sky); }
+.feature-card:nth-child(4)::after { background: var(--coral); }
+.feature-card:nth-child(5)::after { background: var(--lime); }
+.feature-card:nth-child(6)::after { background: var(--coral); }
+.feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); border-color: transparent; }
+.feature-card:hover::after { transform: scaleX(1); }
+
+.feature-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.feature-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.7;
+}
+
+/* COURSES */
+.courses-section {
+  padding: 80px 48px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.courses-section .section-label { color: var(--lime); }
+.courses-section .section-title { color: var(--paper); }
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.course-big-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.course-big-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+
+.course-thumb {
+  height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-body { padding: 24px; }
+
+.course-tag {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 100px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.course-big-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--paper);
+  margin-bottom: 8px;
+}
+
+.course-big-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 20px; }
+
+.course-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.course-meta span { font-size: 12px; color: rgba(255,255,255,0.4); }
+.course-meta strong { font-family: 'Syne', sans-serif; font-size: 18px; color: var(--lime); font-weight: 700; }
+
+/* TESTIMONIAL */
+.testimonial-section {
+  padding: 100px 48px;
+  background: var(--lime);
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.testimonial-section .section-label { color: rgba(13,13,13,0.5); }
+.testimonial-section .section-title { margin-bottom: 0; }
+
+.testimonial-cards { display: flex; flex-direction: column; gap: 16px; }
+
+.t-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  transition: transform 0.3s;
+}
+.t-card:hover { transform: translateX(6px); }
+
+.t-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.t-author { display: flex; align-items: center; gap: 12px; }
+.t-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Syne', sans-serif;
+}
+.t-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; }
+.t-role { font-size: 12px; color: var(--mid); }
+
+.stars { color: #f59e0b; font-size: 13px; margin-bottom: 12px; letter-spacing: 2px; }
+
+/* CTA SECTION */
+.cta-section {
+  padding: 100px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, #ff5a3c15, transparent 70%);
+  z-index: 0;
+}
+
+.cta-section > * { position: relative; z-index: 1; }
+
+.cta-section .section-label { text-align: center; }
+.cta-section .section-title { max-width: 600px; margin: 16px auto 36px; text-align: center; }
+
+.btn-big {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 20px 48px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.25s;
+  border: 2px solid var(--ink);
+}
+.btn-big:hover { background: transparent; color: var(--ink); transform: scale(1.03); }
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; }
+.footer-logo span { color: var(--coral); }
+.footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--lime); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 110px 24px 60px; gap: 40px; }
+  .hero::before { display: none; }
+  .features, .courses-section, .testimonial-section, .cta-section { padding: 60px 24px; }
+  .features-grid, .courses-grid { grid-template-columns: 1fr; }
+  .testimonial-grid { grid-template-columns: 1fr; gap: 40px; }
+  footer { padding: 36px 24px; flex-direction: column; text-align: center; }
+  .hero-stats { gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Edu<span>Path</span></div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#" class="nav-cta">Start Free</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Now with AI-powered learning paths</div>
+    <h1>Learn Skills<br>That <em>Actually</em><br>Get You Hired</h1>
+    <p class="hero-sub">EduPath turns raw curiosity into career-ready skills — through project-based courses designed by people who hire, not just teach.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Start Learning Free</a>
+      <a href="#courses" class="btn-secondary">Browse courses</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">48K+</div>
+        <div class="stat-label">Active learners</div>
+      </div>
+      <div>
+        <div class="stat-num">94%</div>
+        <div class="stat-label">Job placement rate</div>
+      </div>
+      <div>
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Industry courses</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="live-badge"><div class="live-dot"></div> Live now</div>
+      <div style="font-family:'Syne',sans-serif; font-size:12px; color:rgba(255,255,255,0.4); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:20px;">Your learning dashboard</div>
+
+      <div class="course-card">
+        <div class="course-icon" style="background:#c8f13520;">🎨</div>
+        <div class="course-info" style="flex:1;">
+          <h4>UI/UX Fundamentals</h4>
+          <p>Module 4 of 8 · 68% complete</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:68%;background:var(--lime);"></div></div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon" style="background:#ff5a3c20;">💻</div>
+        <div class="course-info" style="flex:1;">
+          <h4>HTML & CSS Mastery</h4>
+          <p>Module 7 of 10 · 82% complete</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:82%;background:var(--coral);"></div></div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon" style="background:#d4efff20;">📊</div>
+        <div class="course-info" style="flex:1;">
+          <h4>Web Analytics Basics</h4>
+          <p>Module 1 of 6 · 20% complete</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:20%;background:#d4efff;"></div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px; padding:16px; background:rgba(200,241,53,0.12); border-radius:14px; border:1px solid rgba(200,241,53,0.2); display:flex; align-items:center; gap:12px;">
+        <div style="font-size:24px;">🏆</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-size:13px; color:var(--lime); font-weight:600;">Achievement Unlocked!</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-top:2px;">7-day learning streak · Keep it up!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span>Web Design</span><span class="dot">✦</span>
+    <span>UI/UX</span><span class="dot">✦</span>
+    <span>HTML & CSS</span><span class="dot">✦</span>
+    <span>Figma</span><span class="dot">✦</span>
+    <span>JavaScript</span><span class="dot">✦</span>
+    <span>React</span><span class="dot">✦</span>
+    <span>Data Analytics</span><span class="dot">✦</span>
+    <span>Career Readiness</span><span class="dot">✦</span>
+    <span>Web Design</span><span class="dot">✦</span>
+    <span>UI/UX</span><span class="dot">✦</span>
+    <span>HTML & CSS</span><span class="dot">✦</span>
+    <span>Figma</span><span class="dot">✦</span>
+    <span>JavaScript</span><span class="dot">✦</span>
+    <span>React</span><span class="dot">✦</span>
+    <span>Data Analytics</span><span class="dot">✦</span>
+    <span>Career Readiness</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label">Why EduPath</div>
+  <div class="section-title">Built for people who want real results</div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#c8f13530;">🎯</div>
+      <h3>Project-First Learning</h3>
+      <p>Every course ends with a real, portfolio-ready project. You learn by building — not by watching.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#ff5a3c20;">🤖</div>
+      <h3>AI Learning Coach</h3>
+      <p>Your personal AI tutor adapts to your pace, spots your gaps, and keeps you on track to finish.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#d4efff60;">🏢</div>
+      <h3>Industry Mentors</h3>
+      <p>Learn from professionals at top companies who teach what they actually use at work daily.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#ff5a3c20;">📜</div>
+      <h3>Recognized Certificates</h3>
+      <p>Certificates trusted by 500+ hiring companies. Shareable directly to LinkedIn with one click.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#c8f13530;">⚡</div>
+      <h3>Learn at Your Pace</h3>
+      <p>No deadlines, no pressure. Access your courses forever and learn when your brain is ready.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#ff5a3c20;">🤝</div>
+      <h3>Placement Support</h3>
+      <p>Resume reviews, mock interviews, and direct recruiter connections. We don't stop at the certificate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="courses-section" id="courses">
+  <div class="section-label">Popular Courses</div>
+  <div class="section-title">Pick your path.<br>Start today.</div>
+
+  <div class="courses-grid">
+    <div class="course-big-card">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">🎨</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:#c8f13520;color:var(--lime);">Most Popular</span>
+        <h3>Web Design Fundamentals</h3>
+        <p>From blank canvas to polished, responsive websites. Master HTML, CSS, and design thinking in 8 weeks.</p>
+        <div class="course-meta">
+          <span>⏱ 8 weeks · 40 lessons</span>
+          <strong>Free</strong>
+        </div>
+      </div>
+    </div>
+    <div class="course-big-card">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#1e0a0a,#3e1616);">💡</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:#ff5a3c20;color:var(--coral);">High Demand</span>
+        <h3>UI/UX Design with Figma</h3>
+        <p>Design interfaces users love. Learn wireframing, prototyping, and user research with real briefs.</p>
+        <div class="course-meta">
+          <span>⏱ 6 weeks · 32 lessons</span>
+          <strong>₹999</strong>
+        </div>
+      </div>
+    </div>
+    <div class="course-big-card">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#0a1a0e,#163e1c);">📈</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:#10b98120;color:#10b981;">New</span>
+        <h3>Frontend Development</h3>
+        <p>HTML → CSS → JavaScript → React. The complete path from web design into real development.</p>
+        <div class="course-meta">
+          <span>⏱ 12 weeks · 64 lessons</span>
+          <strong>₹1,499</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section" id="reviews">
+  <div class="testimonial-grid">
+    <div>
+      <div class="section-label">Student Voices</div>
+      <div class="section-title">Real people. Real results.</div>
+    </div>
+    <div class="testimonial-cards">
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p class="t-text">"I had zero design experience. Three months after completing the Web Design course, I landed a junior designer role at a digital agency. The portfolio project made all the difference."</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:#c8f135;color:#000;">P</div>
+          <div>
+            <div class="t-name">Priya Nair</div>
+            <div class="t-role">Junior UI Designer · Chennai</div>
+          </div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p class="t-text">"The projects here aren't toy examples — they're things you can actually show recruiters. That's what got me my first interview at HCLTech."</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:#ff5a3c;color:#fff;">A</div>
+          <div>
+            <div class="t-name">Arjun Selvam</div>
+            <div class="t-role">Frontend Intern · HCLTech</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label">Ready to start?</div>
+  <div class="section-title">Your first course is completely free.</div>
+  <a href="#" class="btn-big">Create Free Account →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Edu<span>Path</span></div>
+  <div class="footer-links">
+    <a href="#">Courses</a>
+    <a href="#">About</a>
+    <a href="#">Careers</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 EduPath. Designed with purpose.</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; cursor.style.background = '#ff5a3c'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; cursor.style.background = '#ff5a3c'; });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feature-card, .course-big-card, .t-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
