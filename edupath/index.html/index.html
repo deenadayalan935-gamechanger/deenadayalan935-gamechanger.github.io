@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexHire — Where Talent Meets Opportunity</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --border: #1e1e2a;
+  --purple: #7c3aed;
+  --violet: #a855f7;
+  --gold: #f59e0b;
+  --green: #10b981;
+  --white: #f0f0f8;
+  --muted: #5a5a7a;
+  --text: #b0b0c8;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 52px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,10,15,0.94);
+  backdrop-filter: blur(20px);
+}
+
+.logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+.logo span {
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-center { display: flex; gap: 32px; list-style: none; }
+.nav-center a { font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 400; transition: color 0.2s; }
+.nav-center a:hover { color: var(--white); }
+
+.nav-right { display: flex; gap: 12px; align-items: center; }
+
+.btn-ghost {
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+  padding: 9px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-weight: 400;
+}
+.btn-ghost:hover { border-color: var(--purple); color: var(--white); }
+
+.btn-purple {
+  background: var(--purple);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.25s;
+}
+.btn-purple:hover { background: var(--violet); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(124,58,237,0.35); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  padding: 140px 52px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated background grid */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(124,58,237,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,58,237,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%);
+}
+
+.hero-glow {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+  z-index: 0;
+  animation: breathe 5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+  50% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+}
+
+.hero > * { position: relative; z-index: 1; }
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.3);
+  color: var(--violet);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1 {
+  font-size: clamp(48px, 6vw, 88px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -2.5px;
+  color: var(--white);
+  margin-bottom: 24px;
+  max-width: 800px;
+  animation: fadeUp 0.9s ease 0.1s both;
+}
+
+.hero h1 em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--purple), #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 44px;
+  animation: fadeUp 0.9s ease 0.2s both;
+}
+
+/* SEARCH BAR */
+.search-bar {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 620px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  animation: fadeUp 0.9s ease 0.3s both;
+}
+.search-bar:focus-within { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 16px 20px;
+  font-size: 15px;
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.search-bar input::placeholder { color: var(--muted); }
+
+.search-btn {
+  background: var(--purple);
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 6px;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+.search-btn:hover { background: var(--violet); }
+
+.popular-searches {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 52px;
+  animation: fadeUp 0.9s ease 0.35s both;
+}
+.popular-searches span { color: var(--violet); cursor: pointer; }
+.popular-searches span:hover { text-decoration: underline; }
+
+/* COMPANY LOGOS ROW */
+.logos-row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.9s ease 0.45s both;
+}
+.logos-label { font-size: 12px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
+.company-logo {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+.company-logo:hover { border-color: var(--purple); color: var(--white); }
+
+/* STATS STRIP */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 60px 52px 0;
+}
+
+.stat-item {
+  background: var(--surface);
+  padding: 36px 28px;
+  text-align: center;
+  transition: background 0.2s;
+}
+.stat-item:hover { background: rgba(124,58,237,0.06); }
+
+.stat-big {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -1.5px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.stat-big span { color: var(--violet); }
+.stat-desc { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* JOB LISTINGS */
+.jobs-section {
+  padding: 80px 52px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+}
+
+.section-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--violet); margin-bottom: 8px; font-weight: 500; }
+.section-title-sm {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -1px;
+}
+
+.view-all { font-size: 13px; color: var(--violet); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+.view-all:hover { gap: 10px; }
+
+.jobs-grid { display: flex; flex-direction: column; gap: 12px; }
+
+.job-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+  transition: all 0.25s;
+  cursor: pointer;
+  text-decoration: none;
+}
+.job-card:hover { border-color: var(--purple); transform: translateX(4px); background: rgba(124,58,237,0.04); }
+
+.job-logo {
+  width: 52px; height: 52px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.job-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 5px;
+}
+.job-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.job-company { font-size: 13px; color: var(--muted); }
+.job-tag {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+  letter-spacing: 0.3px;
+}
+.tag-full { background: rgba(16,185,129,0.12); color: var(--green); }
+.tag-remote { background: rgba(124,58,237,0.12); color: var(--violet); }
+.tag-intern { background: rgba(245,158,11,0.12); color: var(--gold); }
+.tag-hybrid { background: rgba(14,165,233,0.12); color: #38bdf8; }
+
+.job-right { text-align: right; }
+.job-salary { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+.job-posted { font-size: 12px; color: var(--muted); }
+
+.new-badge {
+  display: inline-block;
+  background: var(--purple);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* FEATURES BENTO */
+.bento-section {
+  padding: 0 52px 80px;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.bento-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  transition: border-color 0.3s, transform 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+.bento-card:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-3px); }
+
+.bento-card.wide { grid-column: span 2; }
+.bento-card.tall { grid-row: span 2; }
+
+.bento-icon { font-size: 32px; margin-bottom: 20px; }
+.bento-card h3 { font-size: 18px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.bento-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+.bento-visual {
+  margin-top: 24px;
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.match-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.match-label { font-size: 12px; color: var(--text); }
+.match-pct { font-size: 12px; font-weight: 600; color: var(--green); }
+.bar { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+.bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--purple), var(--violet)); }
+
+/* CTA */
+.cta-section {
+  margin: 0 52px 80px;
+  background: linear-gradient(135deg, #1a0a3e, #0f172a);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: 24px;
+  padding: 72px 64px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%;
+  transform: translateX(-50%);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%);
+}
+.cta-section > * { position: relative; z-index: 1; }
+.cta-title { font-size: clamp(32px, 4vw, 52px); font-weight: 700; color: var(--white); letter-spacing: -1.5px; margin-bottom: 16px; }
+.cta-sub { font-size: 16px; color: var(--muted); margin-bottom: 36px; }
+.btn-cta {
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  color: #fff;
+  padding: 16px 40px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.25s;
+  box-shadow: 0 8px 32px rgba(124,58,237,0.35);
+}
+.btn-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(124,58,237,0.5); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+.footer-copy { font-size: 13px; color: var(--muted); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-center { display: none; }
+  .hero { padding: 110px 24px 60px; }
+  .stats-strip { grid-template-columns: 1fr 1fr; margin: 40px 24px 0; }
+  .jobs-section, .bento-section { padding: 60px 24px; }
+  .job-card { grid-template-columns: auto 1fr; }
+  .job-right { display: none; }
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-card.wide { grid-column: span 1; }
+  .cta-section { margin: 0 24px 60px; padding: 48px 28px; }
+  footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Nex<span>Hire</span></div>
+  <ul class="nav-center">
+    <li><a href="#">Find Jobs</a></li>
+    <li><a href="#">Companies</a></li>
+    <li><a href="#">Salaries</a></li>
+    <li><a href="#">Career Tips</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="btn-ghost">Sign In</a>
+    <a href="#" class="btn-purple">Post a Job</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-pill">✦ 1,200+ new jobs added this week</div>
+  <h1>Find Work That<br><em>Matches</em> Who<br>You Actually Are</h1>
+  <p class="hero-sub">NexHire connects ambitious freshers and professionals with companies that value skills over credentials.</p>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search jobs, companies, or skills..." />
+    <button class="search-btn">Search Jobs →</button>
+  </div>
+
+  <div class="popular-searches">
+    Popular: <span>Web Designer</span> · <span>UI Developer</span> · <span>Frontend</span> · <span>HCLTech</span> · <span>OLA Electric</span>
+  </div>
+
+  <div class="logos-row">
+    <span class="logos-label">Hiring on NexHire</span>
+    <div class="company-logo">HCLTech</div>
+    <div class="company-logo">OLA</div>
+    <div class="company-logo">Sutherland</div>
+    <div class="company-logo">Valeo</div>
+    <div class="company-logo">Schneider</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-big">84<span>K+</span></div>
+    <div class="stat-desc">Active job listings</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-big">12<span>K+</span></div>
+    <div class="stat-desc">Companies hiring</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-big">96<span>%</span></div>
+    <div class="stat-desc">Placement rate</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-big">4.8<span>★</span></div>
+    <div class="stat-desc">Candidate rating</div>
+  </div>
+</div>
+
+<!-- JOB LISTINGS -->
+<section class="jobs-section">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Opportunities</div>
+      <div class="section-title-sm">Trending Roles Right Now</div>
+    </div>
+    <a href="#" class="view-all">View all jobs →</a>
+  </div>
+
+  <div class="jobs-grid">
+    <a href="#" class="job-card">
+      <div class="job-logo">💻</div>
+      <div class="job-info">
+        <h3>Junior Web Designer <span class="new-badge">New</span></h3>
+        <div class="job-meta">
+          <span class="job-company">HCLTech · Chennai</span>
+          <span class="job-tag tag-full">Full Time</span>
+          <span class="job-tag tag-hybrid">Hybrid</span>
+        </div>
+      </div>
+      <div class="job-right">
+        <div class="job-salary">₹3.5–5 LPA</div>
+        <div class="job-posted">Posted 2 hours ago</div>
+      </div>
+    </a>
+
+    <a href="#" class="job-card">
+      <div class="job-logo">🎨</div>
+      <div class="job-info">
+        <h3>UI/UX Designer — Fresher</h3>
+        <div class="job-meta">
+          <span class="job-company">VisAI Labs · Bangalore</span>
+          <span class="job-tag tag-remote">Remote</span>
+          <span class="job-tag tag-full">Full Time</span>
+        </div>
+      </div>
+      <div class="job-right">
+        <div class="job-salary">₹3–4.5 LPA</div>
+        <div class="job-posted">Posted 5 hours ago</div>
+      </div>
+    </a>
+
+    <a href="#" class="job-card">
+      <div class="job-logo">⚡</div>
+      <div class="job-info">
+        <h3>Frontend Developer Intern <span class="new-badge">Hot</span></h3>
+        <div class="job-meta">
+          <span class="job-company">OLA Electric · Chennai</span>
+          <span class="job-tag tag-intern">Internship</span>
+          <span class="job-tag tag-hybrid">Hybrid</span>
+        </div>
+      </div>
+      <div class="job-right">
+        <div class="job-salary">₹15K/month</div>
+        <div class="job-posted">Posted 1 day ago</div>
+      </div>
+    </a>
+
+    <a href="#" class="job-card">
+      <div class="job-logo">🌐</div>
+      <div class="job-info">
+        <h3>Web Content Designer</h3>
+        <div class="job-meta">
+          <span class="job-company">Sutherland Global · Chennai</span>
+          <span class="job-tag tag-full">Full Time</span>
+          <span class="job-tag tag-hybrid">Hybrid</span>
+        </div>
+      </div>
+      <div class="job-right">
+        <div class="job-salary">₹2.8–4 LPA</div>
+        <div class="job-posted">Posted 2 days ago</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- BENTO FEATURES -->
+<section class="bento-section">
+  <div style="margin-bottom:36px;">
+    <div class="section-eyebrow">Why NexHire</div>
+    <div class="section-title-sm">Built different. Genuinely.</div>
+  </div>
+
+  <div class="bento-grid">
+    <div class="bento-card wide">
+      <div class="bento-icon">🧠</div>
+      <h3>AI Match Score</h3>
+      <p>Our engine scores every job against your profile, skills, and career goals — so you spend time applying, not searching.</p>
+      <div class="bento-visual">
+        <div class="match-bar"><span class="match-label">Junior Web Designer · HCLTech</span><span class="match-pct">96% match</span></div>
+        <div class="bar"><div class="bar-fill" style="width:96%"></div></div>
+        <div class="match-bar"><span class="match-label">UI/UX Fresher · VisAI Labs</span><span class="match-pct">88% match</span></div>
+        <div class="bar"><div class="bar-fill" style="width:88%"></div></div>
+        <div class="match-bar"><span class="match-label">Frontend Intern · OLA</span><span class="match-pct">79% match</span></div>
+        <div class="bar"><div class="bar-fill" style="width:79%"></div></div>
+      </div>
+    </div>
+
+    <div class="bento-card">
+      <div class="bento-icon">📄</div>
+      <h3>Resume Builder</h3>
+      <p>Create a recruiter-ready resume in minutes with our guided builder. ATS-optimized templates included.</p>
+    </div>
+
+    <div class="bento-card">
+      <div class="bento-icon">🎤</div>
+      <h3>Mock Interviews</h3>
+      <p>Practice with AI-powered interview simulations tailored to your target role. Get instant feedback.</p>
+    </div>
+
+    <div class="bento-card">
+      <div class="bento-icon">🔔</div>
+      <h3>Instant Alerts</h3>
+      <p>Get notified the moment a matching job goes live — before 90% of applicants even know it exists.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-title">Your next opportunity<br>is one search away.</div>
+  <div class="cta-sub">Join 84,000+ candidates who found their role through NexHire.</div>
+  <a href="#" class="btn-cta">Create Free Profile →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Nex<span>Hire</span></div>
+  <div class="footer-links">
+    <a href="#">Find Jobs</a>
+    <a href="#">For Companies</a>
+    <a href="#">Blog</a>
+    <a href="#">Privacy</a>
+  </div>
+  <div class="footer-copy">© 2026 NexHire. Designed to get you hired.</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.job-card, .bento-card, .stat-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+    observer.observe(el);
+  });
+
+  // Search bar interaction
+  document.querySelectorAll('.popular-searches span').forEach(tag => {
+    tag.addEventListener('click', () => {
+      document.querySelector('.search-bar input').value = tag.textContent;
+    });
+  });
+</script>
+</body>
+</html>
